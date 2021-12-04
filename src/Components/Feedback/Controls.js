@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Controls = ({ options, handleIncrement }) => (
   <ul className="buttonList">
@@ -13,5 +14,10 @@ const Controls = ({ options, handleIncrement }) => (
     })}
   </ul>
 );
+
+Controls.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.string),
+  handleIncrement: PropTypes.func,
+};
 
 export default Controls;
