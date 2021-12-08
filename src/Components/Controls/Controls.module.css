@@ -1,0 +1,31 @@
+.buttonList {
+  padding: 0;
+  width: 200px;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+.button {
+  height: 30px;
+  border: none;
+  width: 60px;
+  text-transform: capitalize;
+  color: black;
+  cursor: pointer;
+  transition: 200ms;
+}
+.button:hover {
+  transform: scale(1.1);
+}
+.green {
+  composes: button;
+  background-color: green;
+}
+.yellow {
+  composes: button;
+  background-color: yellow;
+}
+.red {
+  composes: button;
+  background-color: red;
+}

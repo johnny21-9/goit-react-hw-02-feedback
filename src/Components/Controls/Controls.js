@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from './Controls.module.css';
 
 const Controls = ({ options, handleIncrement }) => (
-  <ul className="buttonList">
+  <ul className={styles.buttonList}>
     {options.map((item, index) => {
       return (
-        <li key={index}>
-          <button type="button" onClick={() => handleIncrement(item)}>
-            {item}
+        <li key={index} onClick={() => handleIncrement(item.type)}>
+          <button type="button" className={(styles.button, styles[item.color])}>
+            {item.type}
           </button>
         </li>
       );
@@ -16,7 +17,7 @@ const Controls = ({ options, handleIncrement }) => (
 );
 
 Controls.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.string),
+  options: PropTypes.arrayOf(PropTypes.shape),
   handleIncrement: PropTypes.func,
 };
 

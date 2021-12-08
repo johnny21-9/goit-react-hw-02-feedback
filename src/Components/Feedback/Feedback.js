@@ -1,14 +1,15 @@
 import React from 'react';
-import Controls from './Controls';
-import Notification from './Notification';
-import Statistics from './Statistics';
-import Section from './Section';
+import Controls from '../Controls/Controls';
+import Notification from '../Notification/Notification';
+import Statistics from '../Statistics/Statistics';
+import Section from '../Section/Section';
 
 class Feedback extends React.Component {
   static defaultProps = {
     good: 0,
     neutral: 0,
     bad: 0,
+    positivePercentage: 0,
   };
 
   state = {
@@ -20,7 +21,6 @@ class Feedback extends React.Component {
   handleIncrement = option => {
     this.setState({ [option]: this.state[option] + 1 });
   };
-
   countTotal = () => {
     const { good, neutral, bad } = this.state;
     const total = good + neutral + bad;
@@ -31,31 +31,34 @@ class Feedback extends React.Component {
     const { good } = this.state;
     const total = this.countTotal();
     const perc = Math.round((good / total) * 100);
-    if (total === 0) {
-      return 0;
-    } else {
-      return perc;
-    }
+
+    return perc;
   };
 
   render() {
+    const options = [
+      { type: 'good', color: 'green' },
+      { type: 'neutral', color: 'yellow' },
+      { type: 'bad', color: 'red' },
+    ];
+    const total = this.countTotal();
+    const positivePercentage = this.countPositiveFeedbackPercentage();
+    const { good, neutral, bad } = this.state;
+
     return (
       <>
         <Section title={'Please leave feedback'}>
-          <Controls
-            options={['good', 'neutral', 'bad']}
-            handleIncrement={this.handleIncrement}
-          />
+          <Controls options={options} handleIncrement={this.handleIncrement} />
         </Section>
 
         {this.countTotal() > 0 ? (
           <Section title={'Statisics'}>
             <Statistics
-              good={this.state.good}
-              neutral={this.state.neutral}
-              bad={this.state.bad}
-              total={this.countTotal()}
-              positivePercentage={this.countPositiveFeedbackPercentage()}
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={total}
+              positivePercentage={positivePercentage}
             />
           </Section>
         ) : (
